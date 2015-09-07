@@ -1,5 +1,13 @@
 # Morning Sign Out Facebook Analytic
 
+### How to use:
+1. Log in to Facebook.
+2. Turn off Ad-Block and allow and pop-ups on the page to appear. You can do this when trying to open the site and then turn your ad blocker back on when you are done.
+3. If you are not logged in then a pop-up will show up asking you to log in.
+4. Please wait a few seconds for data to populate the table. There is a little lag in loading the large amount of data onto the webpage.
+
+### License
+
 The MIT License (MIT)
 
 Copyright (c) 2015 Morning Sign Out
