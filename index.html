@@ -7,6 +7,7 @@
 <body>
 
 <h1>MSO Facebook Analytics</h1>
+<h3 id="wait">Please wait for the data to load...</h3>
 <table>
 	<tr id="head-row">
 		<td>Name</td>
@@ -80,8 +81,6 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 
 	function request(requestURL) {
 		FB.api(requestURL + END_URL_1, 'get', { }, function(response) {
-		   console.log(requestURL);
-		   console.log(response);
 
 		   // if there is post data returned from Facebook
 		   if (response.data.length > 0) {
@@ -115,19 +114,14 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 	}
 
 	function getLikesOfPostWithID(id) {
-		console.log("entered getLikesOfPostWithID");
 		FB.api(BASE_URL + id + '/likes' + END_URL_2, 'get', { }, function(response) {
-		  console.log(BASE_URL + id + "/likes" + END_URL_2);
 		  var peopleWhoLikeThis = response.data;
-		  console.log(peopleWhoLikeThis);
 		  var peopleCount = peopleWhoLikeThis.length;
-		  console.log(peopleCount);
 		  for (var i = 0; i < peopleCount; i++) {
 		  	var userID = String(peopleWhoLikeThis[i].id);
 		  	
 		  	FB.api(BASE_URL + userID + END_URL_2, {fields: 'name'}, { }, function(response) {
 		  		name = response.name;
-		  		console.log(name);
 		  		if (members[name] == undefined) {
 		  			members[name] = { "likes" : 1, "comments" : 0 };
 		  			addTableRow(name, 1, 0);
@@ -136,7 +130,6 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		  			members[name]["likes"] = numLikes;
 		  			
 		  			var filteredName = name.replace(/\s+/g, '-').toLowerCase();
-		  			console.log(filteredName);
 		  			$('#' + filteredName).find('.likes').text(String(numLikes));
 		  		}
 		  	});
@@ -173,7 +166,9 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 	}
 
 	function addTableRow(name, likes, comments) {
-		console.log("add table row");
+		if ($('#wait').is(":visible")) {
+			$('#wait').fadeOut();
+		}
 		var filteredName = name.replace(/\s+/g, '-').toLowerCase();
 		var row = $('<tr id="' + filteredName + '"></tr>');
 		var n = $('<td class="name">' + name + '</td>');
