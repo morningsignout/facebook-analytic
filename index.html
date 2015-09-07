@@ -96,14 +96,12 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		   // if there is post data returned from Facebook
 		   if (response.data.length > 0) {
 		   		var postIDs = convertJSONToArray(response);
-
+		   		console.log(postIDs);
 		   		// if there are postIDs find out who liked/commented each post
 		   		var postCount = postIDs.length;
 		   		if (postCount > 0) {
-	   				console.log('valid array');
 	   				for (var i = 0; i < postCount; i++) {
 	   					var postID = postIDs[i];
-	   					console.log(postID);
 	   					getLikesOfPostWithID(postID);
 	   					getCommentsOfPostWithID(postID);
 	   				};
@@ -127,6 +125,7 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 	function getLikesOfPostWithID(id) {
 		FB.api(BASE_URL + id + '/likes' + END_URL_2, 'get', { }, function(response) {
 		  var peopleWhoLikeThis = response.data;
+		  console.log(peopleWhoLikeThis);
 		  var peopleCount = peopleWhoLikeThis.length;
 		  for (var i = 0; i < peopleCount; i++) {
 		  	var userID = String(peopleWhoLikeThis[i].id);
@@ -136,6 +135,7 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		  		if (members[name] == undefined) {
 		  			members[name] = { "likes" : 1, "comments" : 0 };
 		  			addTableRow(name, 1, 0);
+		  			console.log(name);
 		  		} else {
 		  			var numLikes = members[name]["likes"] + 1;
 		  			members[name]["likes"] = numLikes;
@@ -166,6 +166,7 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		  		} else {
 		  			var numComments = members[name]["comments"] + 1;
 		  			members[name]["comments"] = numComments;
+		  			console.log(name);
 		  			var filteredName = name.replace(/\s+/g, '-').toLowerCase();
 		  			$('#' + filteredName).find('.comments').text(String(numComments));
 		  		}
@@ -178,7 +179,7 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 
 	function addTableRow(name, likes, comments) {
 		if ($('#wait').is(":visible")) {
-			$('#wait').fadeOut();
+			$('#wait').remove();
 		}
 		var filteredName = name.replace(/\s+/g, '-').toLowerCase();
 		var row = $('<tr id="' + filteredName + '"></tr>');
