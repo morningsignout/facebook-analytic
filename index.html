@@ -14,7 +14,6 @@
 	<li>Turn off Ad-Block and allow and pop-ups on the page to appear. You can do this when trying to open the site and then turn your ad blocker back on when you are done.</li>
 	<li>If you are not logged in then a pop-up will show up asking you to log in.</li>
 	<li>Please wait a few seconds for data to populate the table. There is a little lag in loading the large amount of data onto the webpage.</li>
-	<li>Note: May or may not work on mobile phones.</li>
 </aside>
 <table>
 	<tr id="head-row">
@@ -49,7 +48,7 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
 	var BASE_URL = 'https://graph.facebook.com/';
-	var sinceDate = '2015-11-1';
+	var sinceDate = '2015-12-28';
 	var END_URL_1 = '&since=' + sinceDate + '&access_token=CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao8SRTX57kNtdu0Q4LFk0yOwF1PwdNHupNbAvGkxcFtUgigJhHlv45IR8ZAuh0jjs74MCDtzLBrtOOadjVQpF6dBmwLpevgC07ufDfzDStH5BKZC4gPEZD';
 	var END_URL_2 = '?access_token=CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao8SRTX57kNtdu0Q4LFk0yOwF1PwdNHupNbAvGkxcFtUgigJhHlv45IR8ZAuh0jjs74MCDtzLBrtOOadjVQpF6dBmwLpevgC07ufDfzDStH5BKZC4gPEZD&since=' + sinceDate;
 
@@ -64,7 +63,6 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		});
 
 		FB.login(function(response) {
-		  console.log(response);
 
 		  if (response.status=="connected") {
 			console.log("You're logged in");
@@ -97,7 +95,7 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		   // if there is post data returned from Facebook
 		   if (response.data.length > 0) {
 		   		var postIDs = convertJSONToArray(response);
-		   		console.log(postIDs);
+
 		   		// if there are postIDs find out who liked/commented each post
 		   		var postCount = postIDs.length;
 		   		if (postCount > 0) {
@@ -167,7 +165,6 @@ CAAP895ahySoBAFBZBnf1t221y0dQfnLUaP5X7BUZCvaZAZCH42To2MnEyw489bSD1NMywRLyAMkq1Ao
 		  		} else {
 		  			var numComments = members[name]["comments"] + 1;
 		  			members[name]["comments"] = numComments;
-		  			console.log(name);
 		  			var filteredName = name.replace(/\s+/g, '-').toLowerCase();
 		  			$('#' + filteredName).find('.comments').text(String(numComments));
 		  		}
